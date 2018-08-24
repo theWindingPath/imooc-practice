@@ -1,0 +1,64 @@
+      
+      .container {
+        background:#000;
+   /*     height:200px; */
+        display:flex;
+/*          flex-wrap:wrap;  */
+        justify-content:space-around;
+        align-items:center;
+    }
+    li {
+        list-style:none;
+    }
+    
+    .nav {
+   /*     background:blue;  */
+        display:flex;
+        width:30%;
+        color:#fff;
+        justify-content:space-around; 
+    }
+    
+    .login {
+  /*      background:yellow; */
+        width:10%;
+        display:flex;
+        justify-content:space-between;
+    }
+    .button {
+        background:orange;
+        color:#fff;
+        border:0;
+    }
+/*body部分*/    
+.container-body {
+/*    background: peru;    */
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-around;
+}
+
+.section {
+    background:lightblue;
+    width: 40%;
+    height: 160px;
+    margin: 10px;
+    border-radius: 2%;
+    display: flex;
+    justify-content:space-around;
+    align-items:center;
+}
+
+.section .btn {
+    background:orange;
+    color:#fff;
+    border:0;
+}
+
+.section .box {
+ /*   background: seagreen; */
+    height: 120px;
+    display: flex;
+    flex-direction:column;
+    justify-content: space-around;
+}
