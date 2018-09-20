@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>boostrap-主件练习</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, 
+    initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/jquery-3.1.1.js"></script>
+    <script src="bootstrap/js/bootstrap.js"></script>
+</head>
+
+<body>
+    <!-- 导航、nav-pills -->
+    <p>导航、nav-pills</p>
+    <ul class="nav nav-pills">
+        <li>
+            <a href="#">
+                <span class="glyphicon glyphicon-arrow-left"></span>
+                <span class="glyphicon glyphicon-star"></span>
+                <span class="glyphicon glyphicon-remove"></span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <span class="glyphicon glyphicon-star"></span>
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <span class="glyphicon glyphicon-remove"></span>
+            </a>
+        </li>
+    </ul>
+    <!-- 导航和下拉菜单 -->
+    <p>导航和下拉菜单</p>
+    <div class="dropdown">
+        <button class="btn btn-default " type="button" data-toggle="dropdown">
+            下拉菜单dropdown
+            <!-- <span class="caret"></span> -->
+        </button>
+        <span>11</span>
+        <span>22</span>
+        <p>11</p>
+        <p>33</p>
+        <ul class="dropdown-menu">
+            <span>11</span>
+            <span>22</span>
+            <p>11</p>
+            <p>33</p>
+            <li><a href="#"><span class="glyphicon glyphicon-arrow-left">返回005</span></a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-star">星星</span></a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-remove">关闭</span></a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-arrow-left">返回005</span></a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-star">星星005</span></a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-remove">关闭005</span></a></li>
+        </ul>
+        <ul class="dropdown-menu">
+            <li><a href="#"><span class="glyphicon glyphicon-arrow-left">返回002</span></a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-star">星星002</span></a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-remove">关闭002</span></a></li>
+        </ul>
+        <ul class="dropdown-menu">
+            <li><a href="#"><span class="glyphicon glyphicon-arrow-left">返回001</span></a></li>
+        </ul>
+
+    </div>
+    <!-- 导航条、响应式collapse -->
+    <section id="page-head">
+        <div class="container full-padding">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2"
+                            aria-expanded="false">
+                            <!-- <span class="caret"></span> -->
+                        </button>
+                    </div>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                        <p>222</p>
+                        <p>222</p>
+                        <span>111</span>
+                        <span>111</span>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-left">
+                            <li class="active"><a href="#">首页1</a></li>
+                            <li><a href="#">产品</a></li>
+                            <li><a href="#">关于</a></li>
+                        </ul>
+                    </div>
+                    <!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+            </nav>
+        </div>
+    </section>
+
+    <!-- 导航条 -->
+    <nav class="navbar navbar-default">
+        <div class="navbar-header">
+            <a href="#" class="navbar-brand">sss brand</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="#">111</a></li>
+            <li><a href="#">222</a></li>
+            <li><a href="#">333</a></li>
+            <li><a href="#">333</a></li>
+        </ul>
+    </nav>
+
+    <!-- 常用导航 collapse 在手机屏幕下出现按钮-->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" 
+                data-toggle="collapse"
+                 data-target="#mubiao001">
+
+                    <span class="caret"></span>
+                </button>
+                <a href="#" class="navbar-brand">sss brand</a>
+            </div>
+        </div>
+
+        <ul class="nav navbar-nav">
+            <li><a href="#">111</a></li>
+            <li><a href="#">222</a></li>
+            <li><a href="#">333</a></li>
+            <li><a href="#">333</a></li>
+        </ul>
+
+        <div class="collapse navbar-collapse" id="mubiao001">
+            <ul class="nav navbar-nav">
+                <li><a href="#">aaa</a></li>
+                <li><a href="#">bbb</a></li>
+                <li><a href="#">ccc</a></li>
+                <li><a href="#">333</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
+
+
+
+
+</body>
+
+</html>

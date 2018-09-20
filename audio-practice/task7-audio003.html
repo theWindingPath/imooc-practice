@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>属性和方法演示</title>
+  </head>
+  <body>
+    <video src="./twenty one pilots - Heathens.mp4" controls id="myVideo" width="640px">
+    	您的浏览器不支持video标签
+    </video>
+    <button id="start">开始</button>
+    <button id="pause">暂停</button>
+    <script type="text/javascript">
+     var v = document.getElementById('myVideo'); 
+     var startBtn = document.getElementById('start');
+     var pauseBtn = document.getElementById('pause');
+     v.onloadedmetadata = function(){
+     	console.log("视频地址:"+ v.currentSrc);
+     	console.log("视频总时长:" + v.duration);
+     	console.log("视频播放速率:" + v.playbackRate);
+     	console.log("是否暂停:" + v.paused);
+     	console.log("是否结束:" + v.ended);
+     	console.log("是否静音:" + v.muted);
+     }
+     v.ontimeupdate =function(){
+     	console.log("视频当前时间:" + v.currentTime);
+     	console.log("当前缓冲量:" + v.buffered.end(0));
+     }
+     v.onvolumechange = function(){
+     	 console.log("当前音量:" + v.volume);
+     }
+     startBtn.onclick = function(){
+     	v.play();
+     }
+     pauseBtn.onclick = function(){
+     	v.pause();
+     }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>javascript函数</title>
+</head>
+<body>
+    <script>
+        function getAvg001(){
+            var sum001=0,len001=arguments.length,i;
+            for(i=0;i<len001;i++){
+                sum001+=arguments[i]
+            }
+            return sum001/len001;
+        }
+        var avg001=getAvg001(1,2,3,4,5);
+        console.log(avg001);
+    </script>
+    
+</body>
+</html>

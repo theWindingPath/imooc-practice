@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>任务7：音频</title>
+    <script src="jquery.min.js"></script>
+    <style>
+        .play {
+            height: 32px;
+            width: 32px;
+            background: url("play.png") no-repeat;
+            cursor: pointer;
+        }
+        .pause {
+            height: 32px;
+            width: 32px;
+            background: url("pause.png") no-repeat;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <video src="twenty one pilots - Heathens.mp3" controls id="myVideo">
+        您的浏览器不支持video标签
+    </video>
+    <div class="play" id="playBtn003"></div>
+
+    <script type="text/javascript">
+        var startAndPauseBtn = document.getElementById('playBtn003');
+        var playVideo = document.getElementById('myVideo');
+        
+        startAndPauseBtn.onclick = function () {
+            if (playVideo.paused || playVideo.ended) {
+                playVideo.play();
+                $("#playBtn003").removeClass("play").addClass("pause");
+            } else {
+                playVideo.pause();
+                $("#playBtn003").removeClass("pause").addClass("play");
+            }
+        }
+    </script>
+</body>
+
+</html>

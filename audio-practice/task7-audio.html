@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>任务7：音频</title>
+    <style>
+        img{
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <video src="./twenty one pilots - Heathens.mp3" controls id="myVideo001">
+        您的浏览器不支持video标签
+    </video>
+    <!--           <button id="start">
+        <img src="./task7-audio.jpg" />
+    </button> -->
+
+    <img id="start001" src="./play.png" />
+    <!-- <img id="start001 " src="./start.png" /> -->
+    <button id="pause">
+        <img src="./pause.png" />
+    </button>
+
+    <script type="text/javascript">
+        var play = document.getElementById('myVideo001');
+        var startBtn001 = document.getElementById('start001');
+        var pauseBtn001 = document.getElementById('pause');
+
+        startBtn001.onclick = function () {
+            play.play();
+        }
+        pauseBtn001.onclick = function () {
+            play.pause();
+        }
+    </script>
+</body>
+
+</html>
