@@ -75,26 +75,40 @@ var waterfall = function (wrap, boxes) {
             everyHeight[i] = boxes.eq(i).height() + 40;
             // console.log(everyHeight);
         } else {
+            //获取最小列的高度
             var minHeight = Math.min.apply(null, everyHeight);
-            // console.log(minHeight);
+            // console.log(minHeight); 
+            // 获得最小列索引
             var minIndex = getIndex(minHeight, everyHeight);
-            console.log(minIndex);
+            // console.log(minIndex);
             var leftValue = boxes.eq(minIndex).position().left;
-            boxes.eq(i).css({
-                'position': 'absolute',
-                'top': minHeight,
-                'left': leftValue,
-                'opacity': '0'
-                // 'top': 'minHeight',
-                // 'left': 'leftValue'
-            }).stop().animate({
-                'opacity': '1'
-            }, 1000);
+            // 设置盒子样式
+            setStyle(boxes.eq(i), minHeight, leftValue, i);
+            // boxes.eq(i).css({
+            //     'position': 'absolute',
+            //     'top': minHeight,
+            //     'left': leftValue,
+            //     'opacity': '0'
+            //     // 'top': 'minHeight',
+            //     // 'left': 'leftValue'
+            // }).stop().animate({
+            //     'opacity': '1'
+            // }, 1000);
+            // 更新最小列高度
             everyHeight[minIndex] += boxes.eq(i).height() + 40;
         };
+        // 鼠标经过呈现半透明的交互效果
+        boxes.eq(i).hover(function(event) {
+            $(this).stop().animate({
+                'opacity': '0.5'
+            }, 500);
+        }, function(event) {
+            $(this).stop().animate({
+                'opacity':  '1'
+            }, 500);
+        });
     };
 };
-
 
 // 获取最小列的索引
 function getIndex(minHeight, everyHeight) {
@@ -106,22 +120,63 @@ function getIndex(minHeight, everyHeight) {
     };
 };
 
+// 设置追加盒子的样式
+var getStartNumber = 0;
+var setStyle = function(box, top, left, index) {
+    if (getStartNumber >= index) {
+        return false;
+    };
+    box.css({
+        'position': 'absolute',
+        'top': top,
+        'left': left,
+        'opacity': '0'
+    }).stop().animate({
+        'opacity': '1'
+    }, 1000);
+    getStartNumber = index;
+};
+
+// 数据请求检验 判断什么时候追加
+var getCheck = function(wrap) {
+    // 获取文档高度
+    var documentHeight = $(window).height();
+    // 获取文档向上滚动的高度
+    var scrollHeight = $(window).scrollTop();
+    // 获取最后一个盒子所在列的总高度
+    var boxes = wrap.children('div');
+    var lastBoxTop = boxes.eq(boxes.length - 1).offset().top;
+    var lastBoxHeight = boxes.eq(boxes.length - 1).height();
+    var lastColHeight = lastBoxTop + lastBoxHeight;
+    return documentHeight + scrollHeight >= lastColHeight ? true : false;
+}
+
 // 追加盒子函数
 // function appendBox() {};
-var appendBox = function (wrap, boxes) {
-    for (i in data) {
-        var innerString = ' <div> <img src="images/' + data[i].src + '"> <a href="http://www.imooc.com" target="_blank">' + data[i].title + '</a></div> '
-        wrap.append(innerString);
+var appendBox = function (wrap) {
+    if (getCheck(wrap)) {
+        for (i in data) {
+            var innerString = ' <div> <img src="images/' + data[i].src + '"> <a href="http://www.imooc.com" target="_blank">' + data[i].title + '</a></div> '
+            wrap.append(innerString);
+        };
+    } else {
+        return false;
     };
-    waterfall(wrap, boxes);
+    // for (i in data) {
+    //     var innerString = ' <div> <img src="images/' + data[i].src + '"> <a href="http://www.imooc.com" target="_blank">' + data[i].title + '</a></div> '
+    //     wrap.append(innerString);
+    // };
+    waterfall(wrap, wrap.children('div'));
 };
 
 
 $(document).ready(function (event) {
+    // 获取容器与盒子
     var wrap = $('#wrap');
     var boxes = $('#wrap').children('div');
+    // 加载盒子
     waterfall(wrap, boxes);
-
+    // 滚动事件
     $(this).scroll(function (event) {
         appendBox(wrap, boxes);
     });
