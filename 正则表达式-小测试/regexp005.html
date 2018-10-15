@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>正则表达式测试工具001s</title>
+    <style>
+        dl,dd {
+            padding: 0;
+            margin: 0;
+        }
+        .wrap {
+            width: 1000px;
+            margin: 100px auto;
+        }
+        .title {
+            color: #777;
+            font-size: 24px;
+            text-align: center;
+        }
+        #regexp {
+            float: left;
+            width: 650px;
+            font-size: 14px;
+        }
+        #regexp .textbox {
+            width: 638px;
+            height: 150px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 5px;
+            /* 禁止拖动 */
+            resize: none;
+        }
+        #regexp .readonly {
+            background-color: #eee;
+        }
+        #regexp .textfield {
+            width: 215px;
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+
+        #reglist {
+            float: right;
+            width: 320px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f5f5f5;
+            padding: 20px 0;
+        }
+        #reglist dt {
+            margin-bottom: 10px;
+            text-indent: 20px;
+            color: #999999;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        #reglist dd {
+            height: 40px;
+            line-height: 40px;
+            text-indent: 20px;
+        }
+        #reglist a {
+            display: block;
+            color: #08c;
+            text-decoration: none;
+        }
+        #reglist a:hover {
+            color: #005580;
+            background-color: #eee;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <div class="wrap">
+        <h1 class="title">正则表达式测试工具</h1>
+        <div id="regexp">
+            <textarea id="userText" class="textbox" placeholder="在此输入待匹配的文本"></textarea>
+            <p>
+                正则表达式：<input type="text" id="userRegExp" class="textfield" placeholder="在此输入正则表达式" />
+                <input type="checkbox" name="userModifier" value="i" />忽略大小写
+                <input type="checkbox" name="userModifier" value="g" />全局匹配
+                <input type="checkbox" name="userModifier" value="m" />多行匹配
+                <input type="button" id="matchingBtn" value="测试匹配" />
+            </p>
+            匹配结果：
+            <div id="matchingResult" class="textbox readonly"></div>
+
+            <p>
+                替换文本：<input type="text" id="userReplaceText" class="textfield" placeholder="在此输入替换文本" />
+                <input type="button" id="replaceBtn" value="替换" />
+            </p>
+            替换结果：
+            <div id="replaceResult" class="textbox readonly"></div>
+        </div>
+        <!-- dl (definition list) 定义列表 dt dd 列表里的内容 -->
+        <dl id="reglist">
+            <dt>常用正则表达式</dt>
+            <dd><a href="javascript:;" title="[\u4e00-\u9fa5]">匹配中文字符</a></dd>
+            <dd><a href="javascript:;" title="[1-9]\d{4,}">QQ</a></dd>
+            <dd><a href="javascript:;" title="[\u4e00-\u9fa5]">匹配中文字符</a></dd>
+            <dd><a href="javascript:;" title="[\u4e00-\u9fa5]">匹配中文字符</a></dd>
+            <dd><a href="javascript:;" title="[\u4e00-\u9fa5]">匹配中文字符</a></dd>
+            <dd><a href="javascript:;" title="[\u4e00-\u9fa5]">匹配中文字符</a></dd>
+            <dd><a href="javascript:;" title="[\u4e00-\u9fa5]">匹配中文字符</a></dd>
+            <dd><a href="javascript:;" title="[\u4e00-\u9fa5]">匹配中文字符</a></dd>
+        </dl>
+    </div>
+
+    <script>
+        // 将设置了 id 的节点都获取到
+        var userText = document.getElementById('userText'),
+            userRegExp = document.getElementById('userRegExp'),
+            userModifier = document.getElementsByName('userModifier'), // 获取到的是一个数组
+            matchingBtn = document.getElementById('matchingBtn'),
+            matchingResult = document.getElementById('matchingResult');
+
+        // 替换变量
+        var userReplaceText = document.getElementById('userReplaceText'),
+            replaceBtn = document.getElementById('replaceBtn'),
+            replaceResult = document.getElementById('replaceResult');
+
+        // 获取 a 标签 类数组
+        var reglists = document.getElementById('reglist').getElementsByTagName('a');
+
+        var pattern,
+            modifier = ''; // 保存节点的值 igm
+        // console.log(userModifier);
+
+        // 获取模式修饰符 igm
+        // 给一组节点添加点击事件 使用for循环 复选框 CheckBox
+        for (var i = 0; i < userModifier.length; i++) {
+            userModifier[i].onclick = function () { // 为复选框添加点击事件 每一个
+                modifier = ''; // 将复选框清空 相当于初始化为0
+                for (var j = 0; j < userModifier.length; j++) { // 将复选框循环一遍 获得点击信息
+                    if (userModifier[j].checked) { // 判断每一个复选框是否被选上 勾上
+                        // 将选中的复选框的 value值 累加到一个变量里 igm
+                        modifier += userModifier[j].value;
+                    }
+                }
+            }
+        }
+
+        // 为按钮添加点击事件
+        matchingBtn.onclick = function () { // igm 任意组合
+            // 点击验证 如果为空 弹出提示
+            if (!userText.value) { // 如果上面输入的文本为空
+                alert('请输入待匹配的文本！');
+                userText.focus(); // 将光标定位到 输入文本里
+                return; // 直接返回 不在执行下面函数  因为为空不合法 
+            }
+
+            // 正则输入框验证
+            if (!userRegExp.value) { // 如果上面输入的文本为空
+                alert('请输入正则表达式！');
+                userRegExp.focus(); // 将光标定位到 对应输入文本里
+                return; // 直接返回 不在执行下面函数  因为为空不合法 
+            }
+
+            pattern = new RegExp('(' + userRegExp.value + ')', modifier) // 加上() 进行分组 然后引用
+            // replace 替换
+            matchingResult.innerHTML = pattern.exec(userText.value) ? userText.value.replace(pattern,
+                '<span style="background-color:yellow;">$1</span>') : '(没有匹配)'; // $1作为第一个分组 引用 
+        }
+
+        // 点击替换按钮
+        replaceBtn.onclick = function () { // igm 任意组合
+            // 点击验证 如果为空 弹出提示
+            if (!userText.value) { // 如果上面输入的文本为空
+                alert('请输入待匹配的文本！');
+                userText.focus(); // 将光标定位到 输入文本里
+                return; // 直接返回 不在执行下面函数  因为为空不合法 
+            }
+
+            // 正则输入框验证
+            if (!userRegExp.value) { // 如果上面输入的文本为空
+                alert('请输入正则表达式！');
+                userRegExp.focus(); // 将光标定位到 对应输入文本里
+                return; // 直接返回 不在执行下面函数  因为为空不合法 
+            }
+
+            // 检测替换文本
+            if (!userReplaceText.value) { // 如果上面输入的文本为空
+                alert('请输入要替换成的文本！');
+                userReplaceText.focus(); // 将光标定位到 对应输入文本里
+                return; // 直接返回 不在执行下面函数  因为为空不合法 
+            }
+
+            pattern = new RegExp('(' + userRegExp.value + ')', modifier) // 加上() 进行分组 然后引用
+            // replace 替换 没有替换成原样返回 
+            replaceResult.innerHTML = userText.value.replace(pattern,
+                '<span style="color: orange;">' + userReplaceText.value + '</span>'); // $1作为第一个分组 引用 
+        }
+
+        // 给每个 a 标签添加点击事件
+        for(var i = 0; i < reglists.length; i++) {
+            reglists[i].onclick = function() {
+                // 将 a 标签上的 title 值 添加到 正则输入框
+                userRegExp.value = this.title;
+            };
+        }
+        
+
+    </script>
+</body>
+
+</html>
